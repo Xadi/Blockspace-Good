@@ -35,11 +35,7 @@ class App extends React.Component {
 
     this.watchEvents = this.watchEvents.bind(this)
 
-
-
   }
-
-
 
   componentDidMount() {
     this.setState({loading: true})
@@ -51,8 +47,6 @@ class App extends React.Component {
       })
     }) 
   }
-
-  
 
   watchEvents() {
     this.smartLeaseInstance.leaseSignedEvent({}, {
