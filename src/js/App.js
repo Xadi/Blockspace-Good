@@ -7,10 +7,15 @@ import DisplayTabs from './DisplayTabs'
 import DisplayHeader from './DisplayHeader'
 import 'bootstrap/dist/css/bootstrap.css'
 
+/** @
+  * @ Blockspace App
+  * @ 
+  */
 class App extends React.Component {
     constructor(props) {
         super(props)
 
+        // Initialize web3 
         if (typeof web3 != 'undefined') {
             this.web3Provider = web3.currentProvider
         }

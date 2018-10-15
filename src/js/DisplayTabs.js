@@ -4,6 +4,11 @@ import Tab from 'react-bootstrap/lib/Tab'
 import CreateLeaseForm from './CreateLeaseForm'
 import DisplayContracts from './DisplayContracts'
 
+/** @
+  * @ Display Tabs with Leases inside them
+  * @ 
+  * @ 
+  */
 class DisplayTabs extends React.Component {
 
     constructor(props, context) {
@@ -14,6 +19,7 @@ class DisplayTabs extends React.Component {
         this.handleSelect = this.handleSelect.bind(this);
     }
 
+    // handle switching tabs
     handleSelect(key) {
         this.setState({ 
             key

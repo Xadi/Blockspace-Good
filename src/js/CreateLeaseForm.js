@@ -1,5 +1,9 @@
 import React from 'react'
 
+/** @
+  * @ Lease creation Form Component
+  * @ 
+  */
 class CreateLeaseForm extends React.Component {
 
     constructor(props) {
@@ -48,6 +52,7 @@ class CreateLeaseForm extends React.Component {
         })
     }
 
+    // Handle form entries
     handleTextChange(event) {
         event.preventDefault()
         var value = event.target.value
@@ -96,6 +101,7 @@ class CreateLeaseForm extends React.Component {
     render() {
       if (this.state.displayForm) {
           return(
+              // Form of lease creation 
               <form onSubmit={this.handleSubmit}>
                   <div>
                       <label> Tenant ETH Address: </label>

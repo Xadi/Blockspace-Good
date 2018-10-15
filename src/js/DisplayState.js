@@ -1,5 +1,10 @@
 import React from 'react'
 
+/** @
+  * @ Display State of leases 
+  * @ Strings explaining lease stage -- signed, active, complete...
+  * @ 
+  */
 class DisplayState extends React.Component {
 
     render() {

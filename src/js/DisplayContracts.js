@@ -2,6 +2,12 @@ import React from 'react'
 import DisplayDetailContracts from './DisplayDetailContracts'
 import DisplayState from './DisplayState'
 
+/** @
+  * @ Display List of Contracts
+  * @ type of owner given by DisplayTabs
+  * @ 
+  * @ 
+  */
 class DisplayContracts extends React.Component {
 
     constructor(props, context) {
@@ -20,6 +26,7 @@ class DisplayContracts extends React.Component {
         this.watchEvents = this.watchEvents.bind(this);
     }
 
+    // Handle show/hide lease details
     handleClick(i, event) {
         const newDisplayDetails = [...this.state.displayDetails]
         newDisplayDetails[i] = !newDisplayDetails[i]
@@ -28,6 +35,7 @@ class DisplayContracts extends React.Component {
         })
     }
 
+    // Load account, watch events and load leases in state when component mounts
     componentDidMount() {
         this.props.web3.eth.getCoinbase((err, account) => {
             this.setState({
@@ -41,12 +49,17 @@ class DisplayContracts extends React.Component {
         })
     }
 
+    // load leases in state
     loadLeases() {
+        // get the number of leases stored in blockchain
         this.smartLeaseInstance.leasesCount().then((leasesCount) => {
+            // initialize temporary lease table by copying existing state ones
             this.tempTab = [...this.state.leases]
+            // load lease one by one 
             for (var i = 0; i < leasesCount; i++) {
                 this.loadLeaseByIndex(i, false)
             }
+            // set the full table in state after all are loaded -- for performances & unmounted access errors
             this.setState({
                 leases: this.tempTab
             })
@@ -54,8 +67,10 @@ class DisplayContracts extends React.Component {
     }
 
     loadLeaseByIndex(_index, _callFromEvent) {
+        // for each lease, get the lease general information & detail information (through index)
         this.smartLeaseInstance.leases(_index).then((lease) => {
             this.smartLeaseInstance.leasesDetails(_index).then((leaseDetails) => {
+                // store in state only the leases matching the category (tenant landlord litigator - given by mother component)
                 if (lease[this.props.categoryToFetch] === this.state.account) {
                     var temp = {
                         landlord: lease[0],
@@ -74,12 +89,15 @@ class DisplayContracts extends React.Component {
                         durationInMonth: leaseDetails[5],
                         balanceToBeWithdrawn: leaseDetails[6]
                     }
+                    // store the information from the blockchain in a temporary table 
                     this.tempTab[_index] = temp
+                    // if the call is from an event, we can setState directly, as there is only one call to loadLeaseByIndex directly
                     if (_callFromEvent) {
                         this.setState({
                             leases: this.tempTab
                         })
                     }
+                    // modify state of simple variable to re render and activate store of leases in state
                     this.setState({
                         loading: true
                     })
@@ -89,6 +107,7 @@ class DisplayContracts extends React.Component {
     }
 
     render() {
+        // Display general information, or general information + detail if needed
         let displayState 
         return this.state.leases.map((lease) => {
             displayState = ( 
@@ -111,6 +130,7 @@ class DisplayContracts extends React.Component {
                     </div>
                 </div>  
             )
+            // case we display only general information
             if (!this.state.displayDetails[lease.key]) {
                 return (
                     <div key={lease.key}>
@@ -118,6 +138,7 @@ class DisplayContracts extends React.Component {
                     </div>
                 )
             }
+            // case we display detailed information as well
             else {
                 return (
                     <div key={lease.key}>

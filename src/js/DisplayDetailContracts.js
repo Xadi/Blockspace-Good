@@ -1,6 +1,11 @@
 import React from 'react'
 import DisplayActions from './DisplayActions'
 
+/** @
+  * @ Display detail information for a contract
+  * @ ETH adresses, payment information and Actions (pay, deposit, sign...)
+  * @ 
+  */
 class DisplayDetailContracts extends React.Component {
 
     render() {

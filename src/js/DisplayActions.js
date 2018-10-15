@@ -1,5 +1,11 @@
 import React from 'react'
 
+/** @
+  * @ Display Actions component
+  * @ switch on owner (litigator - tenant - landlord) to display 
+  * @ actions (pay rent, sign...)
+  * @ 
+  */
 class DisplayActions extends React.Component {
 
     constructor(props) {

@@ -1,5 +1,10 @@
 import React from 'react'
 
+/** @
+  * @ Display Header infromation
+  * @ smart contract balances, account and balance account
+  * @ 
+  */
 class DisplayHeader extends React.Component {
 
     constructor(props) {
@@ -17,11 +22,13 @@ class DisplayHeader extends React.Component {
         this.watchEvents = this.watchEvents.bind(this)
     }
 
+    // on component load
     componentDidMount() {
         this.props.web3.eth.getCoinbase((err, account) => {
             this.setState({
                 account: account
             })
+            // load balances and watch events
             this.props.leasesContract.deployed().then((smartLeaseInstance) => {
                 this.smartLeaseInstance = smartLeaseInstance
                 this.updateMoneyInSmartContract()
