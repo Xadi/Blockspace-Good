@@ -62,13 +62,13 @@ contract Leases {
 		// empty constructor -- nothing to do
 	}
 
-	/** @dev Create a new lease
-      * @param _tenant ethereum address of tenant
-      * @param _litigator ethereum address of litigator
-      * @param _physicalAddress -- address of lease 
-      * @param _rentPerMonth amount in wei
-      * @param _deposit amount in wei
-      * @return True if success
+	/**  Create a new lease
+      * param _tenant ethereum address of tenant
+      * param _litigator ethereum address of litigator
+      * param _physicalAddress -- address of lease 
+      * param _rentPerMonth amount in wei
+      * param _deposit amount in wei
+      * return True if success
       */
 	function createLease(
 						address _tenant, 
@@ -116,9 +116,9 @@ contract Leases {
 			return true;
 		}
 
-	/** @dev Tenant sign a lease
-      * @param _index of the lease to be signed
-      * @return True if success
+	/**  Tenant sign a lease
+      * param _index of the lease to be signed
+      * return True if success
       */
 	function signLease(uint _index) 
 		public
@@ -135,9 +135,9 @@ contract Leases {
 			return true;
 		}
 
-	/** @dev Tenant pay deposit
-      * @param _index of the affected lease 
-      * @return True if success
+	/**  Tenant pay deposit
+      * param _index of the affected lease 
+      * return True if success
       */
 	function payDeposit(uint _index)
 		public 
@@ -156,9 +156,9 @@ contract Leases {
 			return true;
 		}
 
-	/** @dev Tenant pay rent
-      * @param _index of the affected lease 
-      * @return True if success
+	/**  Tenant pay rent
+      * param _index of the affected lease 
+      * return True if success
       */
 	function payRent(uint _index)
 		public
@@ -180,9 +180,9 @@ contract Leases {
 			return true;
 		}
 
-	/** @dev Landlord withdraw rent
-      * @param _index of the affected lease 
-      * @return True if success
+	/**  Landlord withdraw rent
+      * param _index of the affected lease 
+      * return True if success
       */
 	function withdrawRent(uint _index)
 		public
@@ -199,9 +199,9 @@ contract Leases {
 			return true;
 		}
 
-	/** @dev Tenant withdraw deposit
-      * @param _index of the affected lease 
-      * @return True if success
+	/**  Tenant withdraw deposit
+      * param _index of the affected lease 
+      * return True if success
       */
 	function withdrawDeposit(uint _index)
 		public
@@ -220,15 +220,15 @@ contract Leases {
 		}
 
 
-	/** @ 
-      * @ 
-      * @
-      * @ 
-      * @ Library to compare strings
-      * @ 
-      * @
-      * @ 
-      * @                  
+	/**  
+      *  
+      * 
+      *  
+      *  Library to compare strings
+      *  
+      * 
+      *  
+      *                   
       */		
 	function compare(string _a, string _b) public pure returns (int) {
 
