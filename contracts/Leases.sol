@@ -1,4 +1,4 @@
-pragma solidity ^0.4.2;
+pragma solidity ^0.5.0;
 
 /** @title Leases Smart Contract */
 contract Leases {
@@ -73,7 +73,7 @@ contract Leases {
 	function createLease(
 						address _tenant, 
 						address _litigator, 
-						string _physicalAddress, 
+						string memory _physicalAddress, 
 						uint _rentPerMonth, 
 						uint _deposit) 
 		public 
@@ -184,8 +184,9 @@ contract Leases {
       * param _index of the affected lease 
       * return True if success
       */
-	function withdrawRent(uint _index)
+	function withdrawRent(uint _index) 
 		public
+		payable
 		returns(bool)
 		{
 			// check sender is landlord 
@@ -193,7 +194,8 @@ contract Leases {
 			// set balance to 0 before transfer to avoid re-entrancy
 			leasesDetails[_index].balanceToBeWithdrawn = 0;
 			// transfer money from smart contract to landlord
-			address(leases[_index].landlord).transfer(leasesDetails[_index].balanceToBeWithdrawn);
+			address payable wallet = address(uint160(leases[_index].landlord));
+			wallet.transfer(leasesDetails[_index].balanceToBeWithdrawn);
 			// event rent withdrawn
 			emit rentWithdrawn(leases[_index].index);
 			return true;
@@ -213,7 +215,8 @@ contract Leases {
 			// set balance to 0 before transfer to avoid re-entrancy
 			leasesDetails[_index].depositPaid = 0;
 			// transfer money from smart contract to tenant
-			address(leases[_index].tenant).transfer(leasesDetails[_index].depositPaid);
+			address payable wallet = address(uint160(leases[_index].tenant));
+			wallet.transfer(leasesDetails[_index].depositPaid);
 			// event deposit withdrawn 
 			emit depositWithdrawn(leases[_index].index);
 			return true;
@@ -230,7 +233,7 @@ contract Leases {
       *  
       *                   
       */		
-	function compare(string _a, string _b) public pure returns (int) {
+	function compare(string memory _a, string memory _b) public pure returns (int) {
 
         bytes memory a = bytes(_a);
         bytes memory b = bytes(_b);
@@ -251,13 +254,13 @@ contract Leases {
     }
 
     /// @dev Compares two strings and returns true iff they are equal.
-    function equal(string _a, string _b) public pure returns (bool) {
+    function equal(string memory _a, string memory _b) public pure returns (bool) {
 
         return compare(_a, _b) == 0;
     }
 
     /// @dev Finds the index of the first occurrence of _needle in _haystack
-    function indexOf(string _haystack, string _needle) public pure returns (int) {
+    function indexOf(string memory _haystack, string memory _needle) public pure returns (int) {
 
     	bytes memory h = bytes(_haystack);
     	bytes memory n = bytes(_needle);
